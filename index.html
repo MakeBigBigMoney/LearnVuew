@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .empty{
+            border-color:red;
+        }
+    </style>
+</head>
+<body>
+<script src="https://cdn.bootcss.com/vue/2.5.16/vue.js"></script>
+
+
+<div id="app">
+    <!--这个相当于值的监听-->
+    <input type="text"
+           v-bind:class="{empty:!count}"
+           v-model="value">
+    <!--这个相当于槽函数的绑定-->
+    <input type="button" value="发送" v-on:click="send" >
+    <div>value 的值是:{{value}}}</div>
+    {{ message }}
+    <div>字数:{{count}}</div>
+</div>
+<script>
+    var app = new Vue({
+        el: '#app',
+        //这个相当于 检测到这个值变化时的输入?
+        data: function () {
+            //这个是 初始值
+            return {value: ''}
+        },
+        methods:{
+            send:function() {
+                alert('发送成功')
+                this.value=''
+            }
+        },
+        computed:{
+            //看样子 count 可能就是每次变化的时候都调用一次，更新值的？
+            //或者根据已知值变化 会触发它的变化的
+            count :function (){
+                //所以这个就是类似一些get方法？
+                return this.value.length
+            }
+        }
+    })
+</script>
+</body>
+</html>
